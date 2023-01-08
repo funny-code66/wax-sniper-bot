@@ -1,3 +1,5 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -5,7 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.options import Options
 
 # WINDOW_SIZE = "1920,1080"
 # chrome_options = Options()
@@ -58,25 +60,62 @@ finally:
 try:
   browser.switch_to.window(browser.window_handles[2])
   input_email = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[5]/div/div/div/div[1]/div[1]/input')))
+  time.sleep(0.3)
   input_email.send_keys('bright113gene@gmail.com', Keys.TAB)
   print('input email success')
+  time.sleep(0.3)
   input_pass = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[5]/div/div/div/div[1]/div[2]/input')))
-  input_pass.send_keys('$$K1c1h3$$', Keys.ENTER)
+  input_pass.send_keys('$$K1c1h3$$')
   print('input pass success')
-  # btn_wallet_login = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/div/div/div[5]/div/div/div/div[4]/button')))
-  # btn_wallet_login.click()
-  browser.implicitly_wait(2)
 except Exception as e:
   print('Err: inputing wallet info')
   print(e)
 finally:
-  # TODO: Click 'login'
+  browser.implicitly_wait(2)
+
+
+# Click 'login' of wallet modal
+try:
+  browser.switch_to.window(browser.window_handles[2])
+  print(browser.title)
+  print(browser.current_url)
+  time.sleep(0.3)
+  btn_wallet_login = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[5]/div/div/div/div[4]/button')))
+  print(btn_wallet_login.is_displayed())
+  print(btn_wallet_login.get_attribute("disabled"))
+  # btn_wallet_login.submit()
+  time.sleep(15)
+  btn_wallet_login.click()
+  # btn_wallet_login.screenshot('1.png')
+except Exception as e:
+  print('Err: clicking "LOGIN" of wallet')
+finally:
+  browser.implicitly_wait(2)
+  time.sleep(7)
+
+# click 'VERIFY ME'
+try:
   browser.switch_to.window(browser.window_handles[0])
-  input()
   btn_verify_me = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div/div/div/div[2]/button[2]')))
   btn_verify_me.click()
+except Exception as e:
+  print('Err: click "VERIFY ME"')
+  print(e)
+finally:
+  browser.implicitly_wait(1)
+
+# click 'CLOSE'
+try:
   btn_close = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div/div/div[2]/div[3]/button')))
   btn_close.click()
+except Exception as e:
+  print('Err: click "CLOSE"')
+  print(e)
+finally:
+  browser.implicitly_wait(1)
+
+
+  
 
 ############################################## Select Collection ########################################
 
@@ -239,12 +278,12 @@ except Exception as e:
   print(e)
 finally:
   browser.implicitly_wait(2)
-  input()
+  # input()
 
 # click 'Approve' finally
 try:
   browser.switch_to.window(browser.window_handles[1])
-  btn_approve = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/section/div[2]/div/div[5]/button')))
+  btn_approve = WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/section/div[2]/div/div[5]/button')))
   btn_approve.click()
   print('click "Approve" success')
   browser.implicitly_wait(2)
@@ -257,4 +296,4 @@ finally:
 
 
 
-  # browser.quit()
+# browser.quit()
