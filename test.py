@@ -27,6 +27,7 @@ assert "AtomicHub" in browser.title
 try:
   btn_login = browser.find_element(By.XPATH, '//*[@id="root"]/div[2]/div/div/div/div[3]/div/button[1]')
   btn_login.click()
+  print('Success: click "Login"')
 except Exception as e:
   print('Err: clicking "LOGIN"')
   print(e)
@@ -38,6 +39,7 @@ try:
   btn_cloud_wallet = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div/div/div[2]/div[1]/div[1]/div/button')))
   assert btn_cloud_wallet is not None
   btn_cloud_wallet.click()
+  print('Success: click "Cloud Wallet"')
 except Exception as e:
   print('Err: clicking "CLOUD WALLET"')
   print(e)
@@ -47,10 +49,11 @@ finally:
 # Click 'login' of wallet modal
 try:
   browser.switch_to.window(browser.window_handles[1])
-  print(browser.title)
-  print(browser.current_url)
+  # print(browser.title)
+  # print(browser.current_url)
   btn_logins = browser.find_element(By.XPATH, '//*[@id="root"]/div/section/div[2]/div/div/button')
   btn_logins.click()
+  print('Success: click "Login" of wallet modal')
 except Exception as e:
   print('Err: clicking "LOGIN" of wallet')
 finally:
@@ -62,30 +65,33 @@ try:
   input_email = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[5]/div/div/div/div[1]/div[1]/input')))
   time.sleep(0.3)
   input_email.send_keys('bright113gene@gmail.com', Keys.TAB)
-  print('input email success')
+  print('Success: input email')
   time.sleep(0.3)
   input_pass = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[5]/div/div/div/div[1]/div[2]/input')))
   input_pass.send_keys('$$K1c1h3$$')
-  print('input pass success')
+  print('Success: input password')
 except Exception as e:
   print('Err: inputing wallet info')
   print(e)
 finally:
-  browser.implicitly_wait(2)
+  pass
 
 
 # Click 'login' of wallet modal
 try:
   browser.switch_to.window(browser.window_handles[2])
-  print(browser.title)
-  print(browser.current_url)
+  # print(browser.title)
+  # print(browser.current_url)
   time.sleep(0.3)
   btn_wallet_login = WebDriverWait(browser, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div/div/div[5]/div/div/div/div[4]/button')))
-  print(btn_wallet_login.is_displayed())
-  print(btn_wallet_login.get_attribute("disabled"))
+  # print(btn_wallet_login.is_displayed())
+  # print(btn_wallet_login.get_attribute("disabled"))
   # btn_wallet_login.submit()
-  time.sleep(15)
+  print('We are bypassing reCaptcha')
+  print('Please wait for 10 sec')
+  time.sleep(9)
   btn_wallet_login.click()
+  print('Success: click "Login" of wallet modal')
   # btn_wallet_login.screenshot('1.png')
 except Exception as e:
   print('Err: clicking "LOGIN" of wallet')
@@ -98,6 +104,7 @@ try:
   browser.switch_to.window(browser.window_handles[0])
   btn_verify_me = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div/div/div/div[2]/button[2]')))
   btn_verify_me.click()
+  print('Success: click "VERIFY ME"')
 except Exception as e:
   print('Err: click "VERIFY ME"')
   print(e)
@@ -108,6 +115,7 @@ finally:
 try:
   btn_close = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[5]/div/div/div[2]/div[3]/button')))
   btn_close.click()
+  print('Success: click "CLOSE"')
 except Exception as e:
   print('Err: click "CLOSE"')
   print(e)
@@ -123,8 +131,13 @@ finally:
 try:
   ele_select = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div[2]/div/div/div/div[2]/div/img')))
   assert ele_select is not None
-finally:
   ele_select.click()
+  print('Success: click "Collection"')
+except Exception as e:
+  print('Err: click "Collection"')
+  print(e)
+finally:
+  pass
 
 # select collection
 try:
@@ -134,12 +147,12 @@ try:
   assert ele_collection_container is not None
   ele_collections = ele_collection_container.find_elements(By.TAG_NAME, 'button')
   assert ele_collections is not None
-  print(len(ele_collections))
+  print('Number of collections are: ', len(ele_collections))
   for button in ele_collections:
     coll_name = button.get_attribute('data-testid')
     print('> ', coll_name)
-  # idx = int(input('please select collection by number: ')) - 1
-  idx = 2
+  idx = int(input('Please select collection by number: ')) - 1
+  # idx = 2
   ele_collections[idx].click()
 finally:
   pass
@@ -148,7 +161,10 @@ finally:
 try:
   btn_sel_close = browser.find_element(By.XPATH, '/html/body/div[5]/div/div/div[2]/button')
   btn_sel_close.click()
-
+  print('Success: click "SELECT AND CLOSE"')
+except Exception as e:
+  print('Err: click "SELECT AND CLOSE"')
+  print(e)
 finally:
   pass
 
@@ -156,6 +172,7 @@ finally:
 try:
   btn_accept_all = browser.find_element(By.XPATH, '//*[@id="root"]/div[4]/div/div/div[3]/button[1]')
   btn_accept_all.click()
+  print('Success: click "cookie panel"')
 finally:
   pass
 
